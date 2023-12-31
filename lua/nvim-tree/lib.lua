@@ -37,6 +37,14 @@ end
 ---@param line number
 ---@return Node|nil
 function M.get_node_at_line(line)
+  if not core.get_explorer() then
+    return
+  end
+
+  local winnr = view.get_winnr()
+  if not winnr then
+    return
+  end
   if line == 1 and view.is_root_folder_visible(core.get_cwd()) then
     return { name = ".." }
   end
