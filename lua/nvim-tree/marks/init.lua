@@ -36,6 +36,21 @@ function M.toggle_mark(node)
   renderer.draw()
 end
 
+---@return table
+function M.toggle_mark_selection()
+  local list = {}
+  local first_line = vim.fn.line("'<")
+  local last_line = vim.fn.line("'>")
+  for i = first_line, last_line do
+    node = require("nvim-tree.lib").get_node_at_line(i)
+    M.toggle_mark(node)
+  end
+  for _, node in pairs(NvimTreeMarks) do
+    table.insert(list, node)
+  end
+  return list
+end
+
 function M.clear_marks()
   NvimTreeMarks = {}
 

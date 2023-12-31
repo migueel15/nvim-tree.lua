@@ -34,6 +34,16 @@ function M.get_node_at_cursor()
   return utils.get_nodes_by_line(core.get_explorer().nodes, core.get_nodes_starting_line())[line]
 end
 
+---@param line number
+---@return Node|nil
+function M.get_node_at_line(line)
+  if line == 1 and view.is_root_folder_visible(core.get_cwd()) then
+    return { name = ".." }
+  end
+
+  return utils.get_nodes_by_line(core.get_explorer().nodes, core.get_nodes_starting_line())[line]
+end
+
 ---Create a sanitized partial copy of a node, populating children recursively.
 ---@param node Node|nil
 ---@return Node|nil cloned node
